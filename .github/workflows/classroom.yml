@@ -1,0 +1,26 @@
+name: Auto-Grading
+
+on:
+  push:
+    branches:
+      - main  # Change this to the default branch of your repository
+
+jobs:
+  autograder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Fetch all history for all branches and tags
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Compare recipe titles to branch names
+        run: python tests/test_branch.py
+
+
